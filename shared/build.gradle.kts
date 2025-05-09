@@ -1,13 +1,19 @@
+import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.vanniktech.mavenPublish)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.serialization)
 }
 
+group = "com.walczynamike"
+version = "0.0.1"
+
 kotlin {
     androidTarget {
+        publishLibraryVariants("release", "debug")
         compilations.all {
             compileTaskProvider.configure {
                 compilerOptions {
@@ -67,5 +73,43 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+}
+
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    // If you have created signing for publishing, enable the next line
+    //signAllPublications()
+
+    coordinates(
+        groupId =  group.toString(),
+        artifactId = "nbp-client",
+        version = version.toString()
+    )
+    // sample POM
+    pom {
+        name = "Nbp Client"
+        description = "Kotlin Multiplatform client for fetching exchange rates and gold prices from the official NBP API"
+        inceptionYear = "2025"
+        url = "https://github.com/walczynamike/nbp-client"
+        licenses {
+            license {
+                name = "Apache License 2.0"
+                url = "https://www.apache.org/licenses/LICENSE-2.0"
+            }
+        }
+        developers {
+            developer {
+                id = "walczynamike"
+                name = "Michal Walczyna"
+                url = "https://github.com/walczynamike"
+                email = "33330036+walczynamike@users.noreply.github.com"
+            }
+        }
+        scm {
+            url = "https://github.com/walczynamike/nbp-client"
+            connection = "scm:git:https://github.com/walczynamike/nbp-client.git"
+            developerConnection = "scm:git:ssh://git@github.com/walczynamike/nbp-client.git"
+        }
     }
 }
