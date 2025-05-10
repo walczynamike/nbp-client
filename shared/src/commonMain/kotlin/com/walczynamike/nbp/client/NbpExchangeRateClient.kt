@@ -12,26 +12,26 @@ class NbpExchangeRateClient(
 ) : ExchangeRateClient {
 
     override suspend fun getCurrentTable(table: String): List<ExchangeRateTable> =
-        client.get("tables/$table/").body()
+        client.get("exchangerates/tables/$table/").body()
 
     override suspend fun getLastTables(table: String, topCount: Int): List<ExchangeRateTable> =
-        client.get("tables/$table/last/$topCount/").body()
+        client.get("exchangerates/tables/$table/last/$topCount/").body()
 
     override suspend fun getTableByDate(table: String, date: String): List<ExchangeRateTable> =
-        client.get("tables/$table/$date/").body()
+        client.get("exchangerates/tables/$table/$date/").body()
 
     override suspend fun getTablesInRange(table: String, startDate: String, endDate: String): List<ExchangeRateTable> =
-        client.get("tables/$table/$startDate/$endDate/").body()
+        client.get("exchangerates/tables/$table/$startDate/$endDate/").body()
 
     override suspend fun getCurrentCurrencyRate(table: String, code: String): SingleRateResponse =
-        client.get("rates/$table/$code/").body()
+        client.get("exchangerates/rates/$table/$code/").body()
 
     override suspend fun getLastCurrencyRates(table: String, code: String, topCount: Int): SingleRateResponse =
-        client.get("rates/$table/$code/last/$topCount/").body()
+        client.get("exchangerates/rates/$table/$code/last/$topCount/").body()
 
     override suspend fun getCurrencyRateByDate(table: String, code: String, date: String): SingleRateResponse =
-        client.get("rates/$table/$code/$date/").body()
+        client.get("exchangerates/rates/$table/$code/$date/").body()
 
     override suspend fun getCurrencyRatesInRange(table: String, code: String, startDate: String, endDate: String): SingleRateResponse =
-        client.get("rates/$table/$code/$startDate/$endDate/").body()
+        client.get("exchangerates/rates/$table/$code/$startDate/$endDate/").body()
 }
