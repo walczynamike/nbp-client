@@ -1,6 +1,7 @@
 package com.walczynamike.nbp.ktor
 
 import io.ktor.client.HttpClient
+import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
@@ -12,7 +13,7 @@ import io.ktor.http.headers
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-val nbpHttpClient = HttpClient {
+internal fun createNbpHttpClient(engine: HttpClientEngine) = HttpClient(engine) {
     defaultRequest {
         url("https://api.nbp.pl/api/")
     }

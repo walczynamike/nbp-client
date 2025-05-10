@@ -1,14 +1,15 @@
 package com.walczynamike.nbp.client
 
-import com.walczynamike.nbp.ktor.nbpHttpClient
+import com.walczynamike.nbp.ktor.createNbpHttpClient
+import com.walczynamike.nbp.ktor.ktorHttpClientEngine
 import com.walczynamike.nbp.model.ExchangeRateTable
 import com.walczynamike.nbp.model.SingleRateResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 
-class NbpExchangeRateClient(
-    private val client: HttpClient = nbpHttpClient,
+class NbpExchangeRateClient internal constructor(
+    private val client: HttpClient,
 ) : ExchangeRateClient {
 
     override suspend fun getCurrentTable(table: String): List<ExchangeRateTable> =
@@ -34,4 +35,10 @@ class NbpExchangeRateClient(
 
     override suspend fun getCurrencyRatesInRange(table: String, code: String, startDate: String, endDate: String): SingleRateResponse =
         client.get("exchangerates/rates/$table/$code/$startDate/$endDate/").body()
+
+    companion object {
+        fun create(): NbpExchangeRateClient = NbpExchangeRateClient(
+            client = createNbpHttpClient(engine = ktorHttpClientEngine)
+        )
+    }
 }
