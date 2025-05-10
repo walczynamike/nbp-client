@@ -30,6 +30,6 @@ val nbpHttpClient = HttpClient {
     }
 
     headers {
-        append(HttpHeaders.ContentType, ContentType.Application.Json)
+        append(HttpHeaders.Accept, ContentType.Application.Json)
     }
 }
