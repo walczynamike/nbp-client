@@ -4,14 +4,8 @@ import com.walczynamike.nbp.client.NbpExchangeRateClient
 import com.walczynamike.nbp.ktor.createNbpHttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.MockRequestHandleScope
-import io.ktor.client.engine.mock.respond
-import io.ktor.client.engine.mock.respondBadRequest
 import io.ktor.client.request.HttpRequestData
 import io.ktor.client.request.HttpResponseData
-import io.ktor.http.ContentType
-import io.ktor.http.HttpHeaders
-import io.ktor.http.Url
-import io.ktor.http.headersOf
 import kotlinx.coroutines.test.runTest
 import mockjsonresponse.exchangerates_rates_a_usd
 import mockjsonresponse.exchangerates_rates_a_usd_last_3
@@ -21,6 +15,7 @@ import mockjsonresponse.exchangerates_tables_a_last_3_response
 import mockjsonresponse.exchangerates_tables_a_response
 import testdata.ExchangeRatesTestData
 import testdata.SingleExchangeRatesTestData
+import util.mockSuccessfulRequest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -153,22 +148,5 @@ internal class NbpExchangeRateClientTest {
         return NbpExchangeRateClient(
             client = createNbpHttpClient(mockEngine),
         )
-    }
-
-    private fun MockRequestHandleScope.mockSuccessfulRequest(
-        httpRequestData: HttpRequestData,
-        urlString: String,
-        responseContent: String,
-    ): HttpResponseData {
-        return if (httpRequestData.url == Url(urlString)) {
-            respond(
-                content = responseContent, headers = headersOf(
-                    HttpHeaders.ContentType,
-                    ContentType.Application.Json.toString(),
-                )
-            )
-        } else {
-            respondBadRequest()
-        }
     }
 }
