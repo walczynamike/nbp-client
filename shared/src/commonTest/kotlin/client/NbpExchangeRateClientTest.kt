@@ -22,7 +22,7 @@ import kotlin.test.assertEquals
 internal class NbpExchangeRateClientTest {
 
     @Test
-    fun `Given successful response, When getCurrentTable is called, Then response is parsed correctly`() =
+    fun `Given successful response When getCurrentTable is called Then response is parsed correctly`() =
         successfulRequestTest(
             mockUrlString = "https://api.nbp.pl/api/exchangerates/tables/A/",
             mockResponseContent = exchangerates_tables_a_response,
@@ -33,7 +33,7 @@ internal class NbpExchangeRateClientTest {
         )
 
     @Test
-    fun `Given successful response, When getLastTables is called, Then response is parsed correctly`() =
+    fun `Given successful response When getLastTables is called Then response is parsed correctly`() =
         successfulRequestTest(
             mockUrlString = "https://api.nbp.pl/api/exchangerates/tables/A/last/3/",
             mockResponseContent = exchangerates_tables_a_last_3_response,
@@ -48,7 +48,7 @@ internal class NbpExchangeRateClientTest {
         )
 
     @Test
-    fun `Given successful response, When getTableByDate is called, Then response is parsed correctly`() =
+    fun `Given successful response When getTableByDate is called Then response is parsed correctly`() =
         successfulRequestTest(
             mockUrlString = "https://api.nbp.pl/api/exchangerates/tables/A/2025-05-09/",
             mockResponseContent = exchangerates_tables_a_2025_05_09_response,
@@ -59,7 +59,7 @@ internal class NbpExchangeRateClientTest {
         )
 
     @Test
-    fun `Given successful response, When getTablesInRange is called, Then response is parsed correctly`() =
+    fun `Given successful response When getTablesInRange is called Then response is parsed correctly`() =
         successfulRequestTest(
             mockUrlString = "https://api.nbp.pl/api/exchangerates/tables/A/2025-05-07/2025-05-09/",
             mockResponseContent = exchangerates_tables_a_2025_05_07_2025_05_09_response,
@@ -78,7 +78,7 @@ internal class NbpExchangeRateClientTest {
         )
 
     @Test
-    fun `Given successful response, When getCurrentCurrencyRate is called, Then response is parsed correctly`() =
+    fun `Given successful response When getCurrentCurrencyRate is called Then response is parsed correctly`() =
         successfulRequestTest(
             mockUrlString = "https://api.nbp.pl/api/exchangerates/rates/A/USD/",
             mockResponseContent = exchangerates_rates_a_usd,
@@ -89,7 +89,7 @@ internal class NbpExchangeRateClientTest {
         )
 
     @Test
-    fun `Given successful response, When getLastCurrencyRates is called, Then response is parsed correctly`() =
+    fun `Given successful response When getLastCurrencyRates is called Then response is parsed correctly`() =
         successfulRequestTest(
             mockUrlString = "https://api.nbp.pl/api/exchangerates/rates/A/USD/last/3/",
             mockResponseContent = exchangerates_rates_a_usd_last_3,
@@ -104,7 +104,7 @@ internal class NbpExchangeRateClientTest {
         )
 
     @Test
-    fun `Given successful response, When getCurrencyRateInRange, Then response is parsed correctly`() =
+    fun `Given successful response When getCurrencyRateInRange Then response is parsed correctly`() =
         successfulRequestTest(
             mockUrlString = "https://api.nbp.pl/api/exchangerates/rates/A/USD/2025-05-07/2025-05-09/",
             mockResponseContent = exchangerates_rates_a_usd_last_3,

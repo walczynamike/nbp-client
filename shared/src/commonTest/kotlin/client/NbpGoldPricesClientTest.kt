@@ -17,7 +17,7 @@ import kotlin.test.assertEquals
 internal class NbpGoldPricesClientTest {
 
     @Test
-    fun `Given successful response, When getPriceToday is called, Then response is parsed correctly`() =
+    fun `Given successful response When getPriceToday is called Then response is parsed correctly`() =
         successfulRequestTest(
             mockUrlString = "https://api.nbp.pl/api/cenyzlota/today/",
             mockResponseContent = cenyzlota_2025_05_12,
@@ -26,7 +26,7 @@ internal class NbpGoldPricesClientTest {
         )
 
     @Test
-    fun `Given successful response, When getCurrentPrice is called, Then response is parsed correctly`() =
+    fun `Given successful response When getCurrentPrice is called Then response is parsed correctly`() =
         successfulRequestTest(
             mockUrlString = "https://api.nbp.pl/api/cenyzlota/",
             mockResponseContent = cenyzlota_2025_05_12,
@@ -35,7 +35,7 @@ internal class NbpGoldPricesClientTest {
         )
 
     @Test
-    fun `Given successful response, When getLastPrices is called, Then response is parsed correctly`() =
+    fun `Given successful response When getLastPrices is called Then response is parsed correctly`() =
         successfulRequestTest(
             mockUrlString = "https://api.nbp.pl/api/cenyzlota/last/3/",
             mockResponseContent = cenyzlota_2025_05_08_2025_05_12,
@@ -48,7 +48,7 @@ internal class NbpGoldPricesClientTest {
         )
 
     @Test
-    fun `Given successful response, When getPriceOnDate is called, Then response is parsed correctly`() =
+    fun `Given successful response When getPriceOnDate is called Then response is parsed correctly`() =
         successfulRequestTest(
             mockUrlString = "https://api.nbp.pl/api/cenyzlota/2025-05-12/",
             mockResponseContent = cenyzlota_2025_05_12,
@@ -57,7 +57,7 @@ internal class NbpGoldPricesClientTest {
         )
 
     @Test
-    fun `Given successful response, When getPricesInRange is called, Then response is parsed correctly`() =
+    fun `Given successful response When getPricesInRange is called Then response is parsed correctly`() =
         successfulRequestTest(
             mockUrlString = "https://api.nbp.pl/api/cenyzlota/2025-05-08/2025-05-12/",
             mockResponseContent = cenyzlota_2025_05_08_2025_05_12,
