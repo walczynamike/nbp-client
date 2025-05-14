@@ -11,13 +11,10 @@ This library provides a unified Kotlin API to retrieve data from the publicly av
 - 💱 **Exchange rate tables** (A, B, C)
 - 🪙 **Gold prices**
 - 📅 **Historical data** and daily updated exchange rates
-- 🔁 JSON and XML format support
 
 Built with Kotlin Multiplatform (KMP), it works across:
 - Android
 - iOS
-- JVM
-- JavaScript (browser/Node)
 
 ---
 
