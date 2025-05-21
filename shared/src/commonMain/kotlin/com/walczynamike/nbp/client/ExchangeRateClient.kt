@@ -2,28 +2,29 @@ package com.walczynamike.nbp.client
 
 import com.walczynamike.nbp.model.ExchangeRateTable
 import com.walczynamike.nbp.model.LocalDate
+import com.walczynamike.nbp.model.NbpTable
 import com.walczynamike.nbp.model.SingleRateResponse
 
 interface ExchangeRateClient {
-    suspend fun getCurrentTable(table: String): ExchangeRateTable
-    suspend fun getLastTables(table: String, topCount: Int): List<ExchangeRateTable>
-    suspend fun getTableByDate(table: String, date: LocalDate): ExchangeRateTable
+    suspend fun getCurrentTable(table: NbpTable): ExchangeRateTable
+    suspend fun getLastTables(table: NbpTable, topCount: Int): List<ExchangeRateTable>
+    suspend fun getTableByDate(table: NbpTable, date: LocalDate): ExchangeRateTable
     suspend fun getTablesInRange(
-        table: String,
+        table: NbpTable,
         startDate: LocalDate,
         endDate: LocalDate,
     ): List<ExchangeRateTable>
 
-    suspend fun getCurrentCurrencyRate(table: String, code: String): SingleRateResponse
-    suspend fun getLastCurrencyRates(table: String, code: String, topCount: Int): SingleRateResponse
+    suspend fun getCurrentCurrencyRate(table: NbpTable, code: String): SingleRateResponse
+    suspend fun getLastCurrencyRates(table: NbpTable, code: String, topCount: Int): SingleRateResponse
     suspend fun getCurrencyRateByDate(
-        table: String,
+        table: NbpTable,
         code: String,
         date: LocalDate,
     ): SingleRateResponse
 
     suspend fun getCurrencyRatesInRange(
-        table: String,
+        table: NbpTable,
         code: String,
         startDate: LocalDate,
         endDate: LocalDate,

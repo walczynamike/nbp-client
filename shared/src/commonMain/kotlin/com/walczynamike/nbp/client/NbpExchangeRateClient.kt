@@ -4,6 +4,7 @@ import com.walczynamike.nbp.ktor.createNbpHttpClient
 import com.walczynamike.nbp.ktor.ktorHttpClientEngine
 import com.walczynamike.nbp.model.ExchangeRateTable
 import com.walczynamike.nbp.model.LocalDate
+import com.walczynamike.nbp.model.NbpTable
 import com.walczynamike.nbp.model.SingleRateResponse
 import com.walczynamike.nbp.model.toFormattedDate
 import io.ktor.client.HttpClient
@@ -14,57 +15,57 @@ class NbpExchangeRateClient internal constructor(
     private val client: HttpClient,
 ) : ExchangeRateClient {
 
-    override suspend fun getCurrentTable(table: String): ExchangeRateTable =
-        client.get("exchangerates/tables/$table/").body<List<ExchangeRateTable>>().first()
+    override suspend fun getCurrentTable(table: NbpTable): ExchangeRateTable =
+        client.get("exchangerates/tables/${table.value}/").body<List<ExchangeRateTable>>().first()
 
-    override suspend fun getLastTables(table: String, topCount: Int): List<ExchangeRateTable> =
-        client.get("exchangerates/tables/$table/last/$topCount/").body()
+    override suspend fun getLastTables(table: NbpTable, topCount: Int): List<ExchangeRateTable> =
+        client.get("exchangerates/tables/${table.value}/last/$topCount/").body()
 
-    override suspend fun getTableByDate(table: String, date: LocalDate): ExchangeRateTable {
+    override suspend fun getTableByDate(table: NbpTable, date: LocalDate): ExchangeRateTable {
         val dateString = date.toFormattedDate()
-        return client.get("exchangerates/tables/$table/$dateString/")
+        return client.get("exchangerates/tables/${table.value}/$dateString/")
             .body<List<ExchangeRateTable>>()
             .first()
     }
 
     override suspend fun getTablesInRange(
-        table: String,
+        table: NbpTable,
         startDate: LocalDate,
         endDate: LocalDate,
     ): List<ExchangeRateTable> {
         val startDateString = startDate.toFormattedDate()
         val endDateString = endDate.toFormattedDate()
-        return client.get("exchangerates/tables/$table/$startDateString/$endDateString/").body()
+        return client.get("exchangerates/tables/${table.value}/$startDateString/$endDateString/").body()
     }
 
-    override suspend fun getCurrentCurrencyRate(table: String, code: String): SingleRateResponse =
-        client.get("exchangerates/rates/$table/$code/").body()
+    override suspend fun getCurrentCurrencyRate(table: NbpTable, code: String): SingleRateResponse =
+        client.get("exchangerates/rates/${table.value}/$code/").body()
 
     override suspend fun getLastCurrencyRates(
-        table: String,
+        table: NbpTable,
         code: String,
         topCount: Int,
     ): SingleRateResponse =
-        client.get("exchangerates/rates/$table/$code/last/$topCount/").body()
+        client.get("exchangerates/rates/${table.value}/$code/last/$topCount/").body()
 
     override suspend fun getCurrencyRateByDate(
-        table: String,
+        table: NbpTable,
         code: String,
         date: LocalDate,
     ): SingleRateResponse {
         val dateString = date.toFormattedDate()
-        return client.get("exchangerates/rates/$table/$code/$dateString/").body()
+        return client.get("exchangerates/rates/${table.value}/$code/$dateString/").body()
     }
 
     override suspend fun getCurrencyRatesInRange(
-        table: String,
+        table: NbpTable,
         code: String,
         startDate: LocalDate,
         endDate: LocalDate,
     ): SingleRateResponse {
         val startDateString = startDate.toFormattedDate()
         val endDateString = endDate.toFormattedDate()
-        return client.get("exchangerates/rates/$table/$code/$startDateString/$endDateString/").body()
+        return client.get("exchangerates/rates/${table.value}/$code/$startDateString/$endDateString/").body()
     }
 
     companion object {

@@ -3,6 +3,7 @@ package client
 import com.walczynamike.nbp.client.NbpExchangeRateClient
 import com.walczynamike.nbp.ktor.createNbpHttpClient
 import com.walczynamike.nbp.model.LocalDate
+import com.walczynamike.nbp.model.NbpTable
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.MockRequestHandleScope
 import io.ktor.client.request.HttpRequestData
@@ -29,7 +30,7 @@ internal class NbpExchangeRateClientTest {
             mockResponseContent = exchangerates_tables_a_response,
             expectedParsedResponse = ExchangeRatesTestData.table_a_2025_05_09,
             nbpClientAction = { client ->
-                client.getCurrentTable("A")
+                client.getCurrentTable(NbpTable.TABLE_A)
             },
         )
 
@@ -44,7 +45,7 @@ internal class NbpExchangeRateClientTest {
                 ExchangeRatesTestData.table_a_2025_05_09,
             ),
             nbpClientAction = { client ->
-                client.getLastTables(table = "A", topCount = 3)
+                client.getLastTables(table = NbpTable.TABLE_A, topCount = 3)
             },
         )
 
@@ -56,7 +57,7 @@ internal class NbpExchangeRateClientTest {
             expectedParsedResponse = ExchangeRatesTestData.table_a_2025_05_09,
             nbpClientAction = { client ->
                 client.getTableByDate(
-                    table = "A",
+                    table = NbpTable.TABLE_A,
                     date = LocalDate(year = 2025, month = 5, day = 9),
                 )
             },
@@ -74,7 +75,7 @@ internal class NbpExchangeRateClientTest {
             ),
             nbpClientAction = { client ->
                 client.getTablesInRange(
-                    table = "A",
+                    table = NbpTable.TABLE_A,
                     startDate = LocalDate(year = 2025, month = 5, day = 7),
                     endDate = LocalDate(year = 2025, month = 5, day = 9),
                 )
@@ -88,7 +89,7 @@ internal class NbpExchangeRateClientTest {
             mockResponseContent = exchangerates_rates_a_usd,
             expectedParsedResponse = SingleExchangeRatesTestData.rates_a_usd,
             nbpClientAction = { client ->
-                client.getCurrentCurrencyRate(table = "A", code = "USD")
+                client.getCurrentCurrencyRate(table = NbpTable.TABLE_A, code = "USD")
             },
         )
 
@@ -100,7 +101,7 @@ internal class NbpExchangeRateClientTest {
             expectedParsedResponse = SingleExchangeRatesTestData.rates_a_usd_last_3,
             nbpClientAction = { client ->
                 client.getLastCurrencyRates(
-                    table = "A",
+                    table = NbpTable.TABLE_A,
                     code = "USD",
                     topCount = 3,
                 )
@@ -115,7 +116,7 @@ internal class NbpExchangeRateClientTest {
             expectedParsedResponse = SingleExchangeRatesTestData.rates_a_usd_last_3,
             nbpClientAction = { client ->
                 client.getCurrencyRatesInRange(
-                    table = "A",
+                    table = NbpTable.TABLE_A,
                     code = "USD",
                     startDate = LocalDate(year = 2025, month= 5, day = 7),
                     endDate = LocalDate(year = 2025, month= 5, day = 9),
