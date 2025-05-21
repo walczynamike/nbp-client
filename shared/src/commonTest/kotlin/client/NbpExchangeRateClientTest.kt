@@ -2,6 +2,7 @@ package client
 
 import com.walczynamike.nbp.client.NbpExchangeRateClient
 import com.walczynamike.nbp.ktor.createNbpHttpClient
+import com.walczynamike.nbp.model.LocalDate
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.MockRequestHandleScope
 import io.ktor.client.request.HttpRequestData
@@ -54,7 +55,10 @@ internal class NbpExchangeRateClientTest {
             mockResponseContent = exchangerates_tables_a_2025_05_09_response,
             expectedParsedResponse = ExchangeRatesTestData.table_a_2025_05_09,
             nbpClientAction = { client ->
-                client.getTableByDate(table = "A", date = "2025-05-09")
+                client.getTableByDate(
+                    table = "A",
+                    date = LocalDate(year = 2025, month = 5, day = 9),
+                )
             },
         )
 
@@ -71,8 +75,8 @@ internal class NbpExchangeRateClientTest {
             nbpClientAction = { client ->
                 client.getTablesInRange(
                     table = "A",
-                    startDate = "2025-05-07",
-                    endDate = "2025-05-09",
+                    startDate = LocalDate(year = 2025, month = 5, day = 7),
+                    endDate = LocalDate(year = 2025, month = 5, day = 9),
                 )
             },
         )
@@ -113,8 +117,8 @@ internal class NbpExchangeRateClientTest {
                 client.getCurrencyRatesInRange(
                     table = "A",
                     code = "USD",
-                    startDate = "2025-05-07",
-                    endDate = "2025-05-09",
+                    startDate = LocalDate(year = 2025, month= 5, day = 7),
+                    endDate = LocalDate(year = 2025, month= 5, day = 9),
                 )
             },
         )

@@ -2,6 +2,7 @@ package client
 
 import com.walczynamike.nbp.client.NbpGoldPriceClient
 import com.walczynamike.nbp.ktor.createNbpHttpClient
+import com.walczynamike.nbp.model.LocalDate
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.MockRequestHandleScope
 import io.ktor.client.request.HttpRequestData
@@ -53,7 +54,9 @@ internal class NbpGoldPricesClientTest {
             mockUrlString = "https://api.nbp.pl/api/cenyzlota/2025-05-12/",
             mockResponseContent = cenyzlota_2025_05_12,
             expectedParsedResponse = GoldPricesTestData.date_2025_05_12,
-            nbpClientAction = { client -> client.getPriceOnDate("2025-05-12") },
+            nbpClientAction = { client ->
+                client.getPriceOnDate(LocalDate(year = 2025, month = 5, day = 12))
+            },
         )
 
     @Test
@@ -67,7 +70,10 @@ internal class NbpGoldPricesClientTest {
                 GoldPricesTestData.date_2025_05_12,
             ),
             nbpClientAction = { client ->
-                client.getPricesInRange(startDate = "2025-05-08", endDate = "2025-05-12")
+                client.getPricesInRange(
+                    startDate = LocalDate(year = 2025, month = 5, day = 8),
+                    endDate = LocalDate(year = 2025, month = 5, day = 12),
+                )
             },
         )
 
