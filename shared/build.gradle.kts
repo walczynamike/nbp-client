@@ -8,7 +8,7 @@ plugins {
     alias(libs.plugins.serialization)
 }
 
-group = "com.walczynamike"
+group = "io.github.walczynamike"
 version = "0.0.1"
 
 kotlin {
@@ -22,7 +22,7 @@ kotlin {
             }
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -67,7 +67,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.walczynamike.nbp"
+    namespace = "io.github.walczynamike.nbp"
     compileSdk = 36
     defaultConfig {
         minSdk = 24
@@ -80,18 +80,21 @@ android {
 
 mavenPublishing {
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
-    // If you have created signing for publishing, enable the next line
-    //signAllPublications()
+
+    if (System.getenv("CI") == "true") {
+        signAllPublications()
+    }
 
     coordinates(
-        groupId =  group.toString(),
+        groupId = group.toString(),
         artifactId = "nbp-client",
         version = version.toString()
     )
     // sample POM
     pom {
         name = "Nbp Client"
-        description = "Kotlin Multiplatform client for fetching exchange rates and gold prices from the official NBP API"
+        description =
+            "Kotlin Multiplatform client for fetching exchange rates and gold prices from the official NBP API"
         inceptionYear = "2025"
         url = "https://github.com/walczynamike/nbp-client"
         licenses {
