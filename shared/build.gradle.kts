@@ -1,5 +1,6 @@
 import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -23,14 +24,21 @@ kotlin {
         }
     }
 
-    listOf(
+    val xcFramework = XCFramework()
+    val xcFrameworkName = "NbpClient"
+
+    val iosTargets = listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
-    ).forEach {
+    )
+
+    iosTargets.forEach {
         it.binaries.framework {
-            baseName = "shared"
+            baseName = xcFrameworkName
+            binaryOption("bundleId", "io.github.walczynamike.nbp")
             isStatic = true
+            xcFramework.add(this)
         }
     }
 
