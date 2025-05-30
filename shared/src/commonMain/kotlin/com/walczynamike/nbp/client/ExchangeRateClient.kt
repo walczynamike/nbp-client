@@ -1,5 +1,6 @@
 package com.walczynamike.nbp.client
 
+import com.walczynamike.nbp.model.CurrencyCode
 import com.walczynamike.nbp.model.ExchangeRateTable
 import com.walczynamike.nbp.model.LocalDate
 import com.walczynamike.nbp.model.NbpTable
@@ -15,17 +16,17 @@ interface ExchangeRateClient {
         endDate: LocalDate,
     ): List<ExchangeRateTable>
 
-    suspend fun getCurrentCurrencyRate(table: NbpTable, code: String): SingleRateResponse
-    suspend fun getLastCurrencyRates(table: NbpTable, code: String, topCount: Int): SingleRateResponse
+    suspend fun getCurrentCurrencyRate(table: NbpTable, currencyCode: CurrencyCode): SingleRateResponse
+    suspend fun getLastCurrencyRates(table: NbpTable, currencyCode: CurrencyCode, topCount: Int): SingleRateResponse
     suspend fun getCurrencyRateByDate(
         table: NbpTable,
-        code: String,
+        currencyCode: CurrencyCode,
         date: LocalDate,
     ): SingleRateResponse
 
     suspend fun getCurrencyRatesInRange(
         table: NbpTable,
-        code: String,
+        currencyCode: CurrencyCode,
         startDate: LocalDate,
         endDate: LocalDate,
     ): SingleRateResponse

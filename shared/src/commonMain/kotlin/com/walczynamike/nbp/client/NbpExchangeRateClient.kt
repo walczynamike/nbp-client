@@ -2,6 +2,7 @@ package com.walczynamike.nbp.client
 
 import com.walczynamike.nbp.ktor.createNbpHttpClient
 import com.walczynamike.nbp.ktor.ktorHttpClientEngine
+import com.walczynamike.nbp.model.CurrencyCode
 import com.walczynamike.nbp.model.ExchangeRateTable
 import com.walczynamike.nbp.model.LocalDate
 import com.walczynamike.nbp.model.NbpTable
@@ -38,34 +39,34 @@ class NbpExchangeRateClient internal constructor(
         return client.get("exchangerates/tables/${table.value}/$startDateString/$endDateString/").body()
     }
 
-    override suspend fun getCurrentCurrencyRate(table: NbpTable, code: String): SingleRateResponse =
-        client.get("exchangerates/rates/${table.value}/$code/").body()
+    override suspend fun getCurrentCurrencyRate(table: NbpTable, currencyCode: CurrencyCode): SingleRateResponse =
+        client.get("exchangerates/rates/${table.value}/${currencyCode.code}/").body()
 
     override suspend fun getLastCurrencyRates(
         table: NbpTable,
-        code: String,
+        currencyCode: CurrencyCode,
         topCount: Int,
     ): SingleRateResponse =
-        client.get("exchangerates/rates/${table.value}/$code/last/$topCount/").body()
+        client.get("exchangerates/rates/${table.value}/${currencyCode.code}/last/$topCount/").body()
 
     override suspend fun getCurrencyRateByDate(
         table: NbpTable,
-        code: String,
+        currencyCode: CurrencyCode,
         date: LocalDate,
     ): SingleRateResponse {
         val dateString = date.toFormattedDate()
-        return client.get("exchangerates/rates/${table.value}/$code/$dateString/").body()
+        return client.get("exchangerates/rates/${table.value}/${currencyCode.code}/$dateString/").body()
     }
 
     override suspend fun getCurrencyRatesInRange(
         table: NbpTable,
-        code: String,
+        currencyCode: CurrencyCode,
         startDate: LocalDate,
         endDate: LocalDate,
     ): SingleRateResponse {
         val startDateString = startDate.toFormattedDate()
         val endDateString = endDate.toFormattedDate()
-        return client.get("exchangerates/rates/${table.value}/$code/$startDateString/$endDateString/").body()
+        return client.get("exchangerates/rates/${table.value}/${currencyCode.code}/$startDateString/$endDateString/").body()
     }
 
     companion object {
